@@ -60,7 +60,7 @@ public class SummaryScreen extends AppCompatActivity {
             Toast.makeText(this, "Summary saved successfully!", Toast.LENGTH_SHORT).show();
             Intent resultIntent = new Intent(SummaryScreen.this, PreviewScreen.class);
             resultIntent.putExtra("summary", summaryText);
-            setResult(RESULT_OK, resultIntent);
+            startActivity(resultIntent);
             finish();
         }
     }
