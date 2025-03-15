@@ -19,11 +19,7 @@ public class SummaryScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_screen);
-
-        // Initialize Views
-        summary = findViewById(R.id.idsummary);
-        btnSave = findViewById(R.id.btnSave);
-        btnCancel = findViewById(R.id.btnCancel);
+        init();
 
         //Save
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +58,7 @@ public class SummaryScreen extends AppCompatActivity {
             Toast.makeText(this, "Summary cannot exceed 100 characters!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Summary saved successfully!", Toast.LENGTH_SHORT).show();
-            Intent resultIntent = new Intent();
+            Intent resultIntent = new Intent(SummaryScreen.this, PreviewScreen.class);
             resultIntent.putExtra("summary", summaryText);
             setResult(RESULT_OK, resultIntent);
             finish();
