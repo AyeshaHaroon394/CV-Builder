@@ -13,7 +13,34 @@
         android:theme="@style/Theme.CVBuilder"
         tools:targetApi="31">
         <activity
+            android:name=".PreviewScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ReferencesScreen"
+            android:exported="false" />
+        <activity
+            android:name=".CertificationsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ExperienceScreen"
+            android:exported="false" />
+        <activity
+            android:name=".EducationScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SummaryScreen"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalDetailsScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ProfilePictureScreen"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
