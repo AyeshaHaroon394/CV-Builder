@@ -24,9 +24,9 @@ public class PersonalDetailsScreen extends AppCompatActivity {
         btnSave.setOnClickListener(v -> saveDetails());
 
         btnCancel.setOnClickListener(v -> {
-            Intent homeIntent = new Intent(PersonalDetailsScreen.this, MainActivity.class);
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(homeIntent);
+            Intent cancel = new Intent(PersonalDetailsScreen.this, MainActivity.class);
+            cancel.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(cancel);
             finish();
         });
     }

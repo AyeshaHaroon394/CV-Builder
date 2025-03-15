@@ -1,10 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SummaryScreen">
+    android:padding="20dp"
+    android:background="#D9D9D9">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- title -->
+    <TextView
+        android:id="@+id/tvSummaryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Summary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#424242"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- Summary -->
+    <EditText
+        android:id="@+id/idsummary"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:hint="Enter summary (10-100 characters)"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:layout_below="@id/tvSummaryTitle"
+        android:layout_marginTop="30dp"/>
+
+    <!-- save button -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Save"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/save_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"/>
+
+    <!-- cancel button -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/cancel_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btnSave"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>
