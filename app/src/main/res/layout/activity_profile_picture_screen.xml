@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/imgProfile"
         android:layout_marginTop="75dp"
-        android:background="@drawable/rounded_button"/>
+        android:background="@drawable/options"/>
 
     <!-- Save Button (Near Bottom) -->
     <Button
@@ -43,7 +43,7 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:padding="10dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/save_btn"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"/>
@@ -58,7 +58,7 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:padding="10dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/cancel_btn"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btnSave"
         android:layout_marginBottom="20dp"/>

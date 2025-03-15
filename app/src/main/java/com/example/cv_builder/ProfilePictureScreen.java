@@ -45,9 +45,11 @@ public class ProfilePictureScreen extends AppCompatActivity {
         //Save button to pass the image to preview screen
         btnSave.setOnClickListener(v -> {
             if (imageUri != null) {
-                Intent next = new Intent(ProfilePictureScreen.this, PreviewScreen.class);
-                next.putExtra("imageUri", imageUri.toString());
-                startActivity(next);
+                Intent save = new Intent(ProfilePictureScreen.this, MainActivity.class);
+                save.putExtra("imageUri", imageUri.toString());
+                save.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(save);
+                finish();
             }
         });
 
