@@ -85,6 +85,7 @@
         android:layout_height="50dp"
         android:text="Cancel"
         android:textColor="@android:color/white"
+        android:backgroundTint="@color/black"
         android:textStyle="bold"
         android:padding="10dp"
         android:background="@drawable/cancel_btn"

@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
             btnEducation,
             btnExperience,
             btnCertifications,
-            btnReferences;
+            btnReferences,
+            btnPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         btnExperience = findViewById(R.id.btnExperience);
         btnCertifications = findViewById(R.id.btnCertifications);
         btnReferences = findViewById(R.id.btnReferences);
+        btnPreview = findViewById(R.id.btnPreview);
 
         //Setting click listeners
         btnProfilePicture.setOnClickListener(v -> navigateTo("ProfilePictureScreen"));
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnExperience.setOnClickListener(v -> navigateTo("ExperienceScreen"));
         btnCertifications.setOnClickListener(v -> navigateTo("CertificationsScreen"));
         btnReferences.setOnClickListener(v -> navigateTo("ReferencesScreen"));
+        btnPreview.setOnClickListener(v -> navigateTo("PreviewScreen"));
     }
 
     private void navigateTo(String className) {

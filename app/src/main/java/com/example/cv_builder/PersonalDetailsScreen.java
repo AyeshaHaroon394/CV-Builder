@@ -1,9 +1,9 @@
 package com.example.cv_builder;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,10 +20,12 @@ public class PersonalDetailsScreen extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details_screen);
 
         init();
+        loadSavedData(); // Load saved data when screen opens
 
         btnSave.setOnClickListener(v -> saveDetails());
 
         btnCancel.setOnClickListener(v -> {
+            // Return to MainActivity without saving
             Intent cancel = new Intent(PersonalDetailsScreen.this, MainActivity.class);
             cancel.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(cancel);
@@ -46,6 +48,7 @@ public class PersonalDetailsScreen extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String phoneNumber = etPhoneNumber.getText().toString().trim();
 
+        // Validation checks
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()) {
             Toast.makeText(this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
             return;
@@ -56,24 +59,34 @@ public class PersonalDetailsScreen extends AppCompatActivity {
             return;
         }
 
-        //validation check to make sure 11 digits
-        if (!phoneNumber.matches("\\d{11}")) {
-            Toast.makeText(this, "Invalid phone number! Enter 10 digits.", Toast.LENGTH_SHORT).show();
+        if (!phoneNumber.matches("\\d{11}")) { // Ensure phone number is 11 digits
+            Toast.makeText(this, "Invalid phone number! Enter 11 digits.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //sending data to PreviewScreen
-        Intent previewIntent = new Intent(PersonalDetailsScreen.this, PreviewScreen.class);
-        previewIntent.putExtra("firstName", firstName);
-        previewIntent.putExtra("lastName", lastName);
-        previewIntent.putExtra("email", email);
-        previewIntent.putExtra("phoneNumber", phoneNumber);
-        startActivity(previewIntent);
+        // Store the data in SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ProfileData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("firstName", firstName);
+        editor.putString("lastName", lastName);
+        editor.putString("email", email);
+        editor.putString("phoneNumber", phoneNumber);
+        editor.apply();
 
-        //go back to Home Screen
-        Intent homeIntent = new Intent(PersonalDetailsScreen.this, MainActivity.class);
+        Toast.makeText(this, "Details saved successfully!", Toast.LENGTH_SHORT).show();
+
+        // Navigate back to Home Screen (MainActivity)
+        Intent homeIntent = new Intent(this, MainActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(homeIntent);
         finish();
+    }
+
+    private void loadSavedData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("ProfileData", MODE_PRIVATE);
+        etFirstName.setText(sharedPreferences.getString("firstName", ""));
+        etLastName.setText(sharedPreferences.getString("lastName", ""));
+        etEmail.setText(sharedPreferences.getString("email", ""));
+        etPhoneNumber.setText(sharedPreferences.getString("phoneNumber", ""));
     }
 }

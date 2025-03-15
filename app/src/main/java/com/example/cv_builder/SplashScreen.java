@@ -9,9 +9,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -23,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         logo = findViewById(R.id.logo);
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.translate);
         logo.startAnimation(fadeIn);
 
         new Handler().postDelayed(() -> {
