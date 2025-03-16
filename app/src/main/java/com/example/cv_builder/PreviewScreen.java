@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Set;
 
 public class PreviewScreen extends AppCompatActivity {
-    private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications;
+    private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications, tvReferences;
     private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
     private Button btnBack;
@@ -44,6 +44,8 @@ public class PreviewScreen extends AppCompatActivity {
         tvUniversity = findViewById(R.id.tvUniversity);
         tvCompanies = findViewById(R.id.tvCompanies);
         tvYears = findViewById(R.id.tvyears);
+        tvCertifications = findViewById(R.id.tvCertifications);
+        tvReferences = findViewById(R.id.tvReferences);
         btnBack = findViewById(R.id.btnBack);
     }
 
@@ -109,6 +111,18 @@ public class PreviewScreen extends AppCompatActivity {
             tvCertifications.setText(certText.toString());
         } else {
             tvCertifications.setText("Certifications: No certifications added");
+        }
+
+        // Load References
+        Set<String> refSet = profilePrefs.getStringSet("references", null);
+        if (refSet != null && !refSet.isEmpty()) {
+            StringBuilder refText = new StringBuilder("References:\n");
+            for (String ref : refSet) {
+                refText.append(ref.trim()).append("\n");
+            }
+            tvReferences.setText(refText.toString());
+        } else {
+            tvReferences.setText("References: No references added");
         }
 
         // Load Profile Picture

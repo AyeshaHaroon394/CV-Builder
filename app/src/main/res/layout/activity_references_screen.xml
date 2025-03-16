@@ -1,10 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReferencesScreen">
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="References"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#424242"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- Question: Do you have any references? -->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you have any references?"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Radio Group for Yes/No response -->
+    <RadioGroup
+        android:id="@+id/rgReferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvQuestion"
+        android:layout_marginBottom="20dp">
+
+        <RadioButton
+            android:id="@+id/rbYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/rbNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No" />
+    </RadioGroup>
+
+    <!-- References Input Field (Initially Hidden) -->
+    <EditText
+        android:id="@+id/etReferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter references (comma-separated)"
+        android:visibility="gone"
+        android:background="@drawable/rounded_edittext"
+        android:layout_below="@id/rgReferences"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Save Button (Near Bottom) -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Save"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/save_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"/>
+
+    <!-- Cancel Button (Above Save) -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/cancel_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btnSave"
+        android:layout_marginBottom="20dp"/>
+</RelativeLayout>
