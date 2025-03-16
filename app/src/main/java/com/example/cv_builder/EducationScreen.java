@@ -1,5 +1,6 @@
 package com.example.cv_builder;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -11,16 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EducationScreen extends AppCompatActivity {
 
     private EditText etUniversity, etDegree, etYear, etHighSchool, etHighSchoolDegree, etHighSchoolYear;
-    private Button btnSave;
+    private Button btnSave, btnCancel;
     private SharedPreferences sharedPreferences;
 
-    private static final String PREF_NAME = "ProfileData";
-    private static final String KEY_UNIVERSITY = "university";
-    private static final String KEY_DEGREE = "degree";
-    private static final String KEY_YEAR = "year";
-    private static final String KEY_HIGH_SCHOOL = "high_school";
-    private static final String KEY_HIGH_SCHOOL_DEGREE = "high_school_degree";
-    private static final String KEY_HIGH_SCHOOL_YEAR = "high_school_year";
+    private static final String PREF_NAME = "ProfileData";  // Updated shared preference name
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +29,17 @@ public class EducationScreen extends AppCompatActivity {
         etHighSchool = findViewById(R.id.etHighSchool);
         etHighSchoolDegree = findViewById(R.id.etHighSchoolDegree);
         etHighSchoolYear = findViewById(R.id.etHighSchoolYear);
-
         btnSave = findViewById(R.id.btnSave);
+        btnCancel = findViewById(R.id.btnCancel);  // Added cancel button
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
         // Save button logic
         btnSave.setOnClickListener(v -> saveEducationData());
+
+        // Cancel button logic (Navigates back without saving)
+        btnCancel.setOnClickListener(v -> navigateBack());
     }
 
     private void saveEducationData() {
@@ -59,14 +57,22 @@ public class EducationScreen extends AppCompatActivity {
         }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_UNIVERSITY, university);
-        editor.putString(KEY_DEGREE, degree);
-        editor.putString(KEY_YEAR, year);
-        editor.putString(KEY_HIGH_SCHOOL, highSchool);
-        editor.putString(KEY_HIGH_SCHOOL_DEGREE, highSchoolDegree);
-        editor.putString(KEY_HIGH_SCHOOL_YEAR, highSchoolYear);
+        editor.putString("university", university);
+        editor.putString("degree", degree);
+        editor.putString("year", year);
+        editor.putString("high_school", highSchool);
+        editor.putString("high_school_degree", highSchoolDegree);
+        editor.putString("high_school_year", highSchoolYear);
         editor.apply();
 
         Toast.makeText(EducationScreen.this, "Education Details Saved", Toast.LENGTH_SHORT).show();
+
+        navigateBack();  // Navigate back after saving
+    }
+
+    private void navigateBack() {
+        Intent intent = new Intent(EducationScreen.this, MainActivity.class);
+        startActivity(intent);
+        finish();  // Close the current activity
     }
 }

@@ -98,7 +98,7 @@
         android:background="@drawable/save_btn"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="100dp"/>
 
     <!-- Cancel Button (Above Save) -->
     <Button
@@ -107,7 +107,6 @@
         android:layout_height="50dp"
         android:text="Cancel"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/black"
         android:textStyle="bold"
         android:padding="10dp"
         android:background="@drawable/cancel_btn"
