@@ -1,9 +1,12 @@
 package com.example.cv_builder;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -12,7 +15,10 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class ProfilePictureScreen extends AppCompatActivity {
 
@@ -21,6 +27,7 @@ public class ProfilePictureScreen extends AppCompatActivity {
     private ActivityResultLauncher<Intent> launcher;
     private Uri imageUri; // Stores selected image URI
     private SharedPreferences sharedPreferences;
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +47,9 @@ public class ProfilePictureScreen extends AppCompatActivity {
                 }
         );
 
-        btnSelectImage.setOnClickListener(v -> selectImage());
+        btnSelectImage.setOnClickListener(v -> requestPermissionAndSelectImage());
         btnSave.setOnClickListener(v -> saveImage());
-        btnCancel.setOnClickListener(v -> {
-            finish(); // Cancel without saving
-        });
+        btnCancel.setOnClickListener(v -> finish()); // Cancel without saving
     }
 
     private void init() {
@@ -53,6 +58,28 @@ public class ProfilePictureScreen extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
         sharedPreferences = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);
+    }
+
+    private void requestPermissionAndSelectImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { // Android 14+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+                selectImage();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, PERMISSION_REQUEST_CODE);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+                selectImage();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, PERMISSION_REQUEST_CODE);
+            }
+        } else { // Android 12 and below
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                selectImage();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            }
+        }
     }
 
     private void selectImage() {
@@ -79,6 +106,20 @@ public class ProfilePictureScreen extends AppCompatActivity {
         if (savedImageUri != null) {
             imageUri = Uri.parse(savedImageUri);
             imgProfile.setImageURI(imageUri);
+        }
+    }
+
+    // Handle permission result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                selectImage(); // Permission granted, open gallery
+            } else {
+                Toast.makeText(this, "Permission denied! Select specific photos manually.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
