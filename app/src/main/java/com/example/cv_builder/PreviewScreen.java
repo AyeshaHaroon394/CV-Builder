@@ -1,32 +1,25 @@
 package com.example.cv_builder;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Set;
 
 public class PreviewScreen extends AppCompatActivity {
 
-    // Declare views
     private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications, tvReferences;
     private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
     private Button btnBack, btnShare;
-
-    // SharedPreferences instance
     private SharedPreferences profilePrefs;
 
     @Override
@@ -34,26 +27,18 @@ public class PreviewScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_screen);
 
-        init();  // Initialize views and SharedPreferences
-        loadData();  // Load data into views
+        init();
+        loadData();
 
-        // Back button functionality
         btnBack.setOnClickListener(v -> {
             Intent backIntent = new Intent(PreviewScreen.this, MainActivity.class);
             startActivity(backIntent);
             finish();
         });
 
-        btnShare.setOnClickListener(v ->{
-            Uri fileUri = createAndSaveCV(); // Generate and save the CV
-            if (fileUri != null) {
-                shareCV(fileUri); // Share the CV
-            }
-        });
-
+        btnShare.setOnClickListener(v -> shareCV());
     }
 
-    // Initialize views and SharedPreferences
     private void init() {
         tvName = findViewById(R.id.tvName);
         tvEmail = findViewById(R.id.tvEmail);
@@ -69,10 +54,9 @@ public class PreviewScreen extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnShare = findViewById(R.id.btnShareCV);
 
-        profilePrefs = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);  // Initialize SharedPreferences
+        profilePrefs = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);
     }
 
-    // Load all data into the views
     private void loadData() {
         loadPersonalDetails();
         loadEducationDetails();
@@ -82,7 +66,6 @@ public class PreviewScreen extends AppCompatActivity {
         loadProfilePicture();
     }
 
-    // Function to load personal details
     private void loadPersonalDetails() {
         String firstName = profilePrefs.getString("firstName", "N/A");
         String lastName = profilePrefs.getString("lastName", "N/A");
@@ -96,7 +79,6 @@ public class PreviewScreen extends AppCompatActivity {
         tvSummary.setText(summary);
     }
 
-    // Function to load education details
     private void loadEducationDetails() {
         String highSchool = profilePrefs.getString("high_school", "N/A");
         String highSchoolDegree = profilePrefs.getString("high_school_degree", "N/A");
@@ -106,11 +88,10 @@ public class PreviewScreen extends AppCompatActivity {
         String universityDegree = profilePrefs.getString("degree", "N/A");
         String universityYear = profilePrefs.getString("year", "N/A");
 
-        tvHighSchool.setText("High School: " + highSchool + " Degree: " + highSchoolDegree + " Year: " + highSchoolYear);
-        tvUniversity.setText("University: " + university + " Degree: " + universityDegree + " Year: " + universityYear);
+        tvHighSchool.setText("High School: " + highSchool + " | Degree: " + highSchoolDegree + " | Year: " + highSchoolYear);
+        tvUniversity.setText("University: " + university + " | Degree: " + universityDegree + " | Year: " + universityYear);
     }
 
-    // Function to load experience details
     private void loadExperienceDetails() {
         Set<String> companySet = profilePrefs.getStringSet("companies", null);
         Set<String> yearSet = profilePrefs.getStringSet("durations", null);
@@ -124,11 +105,7 @@ public class PreviewScreen extends AppCompatActivity {
 
             for (int i = 0; i < companies.length; i++) {
                 companyText.append(companies[i]).append("\n");
-                if (i < years.length) {
-                    yearText.append(years[i]).append("\n");
-                } else {
-                    yearText.append("N/A\n");
-                }
+                yearText.append(i < years.length ? years[i] : "N/A").append("\n");
             }
 
             tvCompanies.setText(companyText.toString());
@@ -139,35 +116,20 @@ public class PreviewScreen extends AppCompatActivity {
         }
     }
 
-    // Function to load certifications
     private void loadCertifications() {
         Set<String> certSet = profilePrefs.getStringSet("certifications", null);
-        if (certSet != null && !certSet.isEmpty()) {
-            StringBuilder certText = new StringBuilder("Certifications:\n");
-            for (String cert : certSet) {
-                certText.append(cert.trim()).append("\n");
-            }
-            tvCertifications.setText(certText.toString());
-        } else {
-            tvCertifications.setText("Certifications: No certifications added");
-        }
+        tvCertifications.setText(certSet != null && !certSet.isEmpty()
+                ? "Certifications:\n" + String.join("\n", certSet)
+                : "Certifications: No certifications added");
     }
 
-    // Function to load references
     private void loadReferences() {
         Set<String> refSet = profilePrefs.getStringSet("references", null);
-        if (refSet != null && !refSet.isEmpty()) {
-            StringBuilder refText = new StringBuilder("References:\n");
-            for (String ref : refSet) {
-                refText.append(ref.trim()).append("\n");
-            }
-            tvReferences.setText(refText.toString());
-        } else {
-            tvReferences.setText("References: No references added");
-        }
+        tvReferences.setText(refSet != null && !refSet.isEmpty()
+                ? "References:\n" + String.join("\n", refSet)
+                : "References: No references added");
     }
 
-    // Function to load profile picture
     private void loadProfilePicture() {
         String imageUriString = profilePrefs.getString("profileImageUri", null);
         if (imageUriString != null) {
@@ -176,49 +138,23 @@ public class PreviewScreen extends AppCompatActivity {
         }
     }
 
-    private Uri createAndSaveCV() {
-        String fileName = "CV_" + System.currentTimeMillis() + ".pdf";
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS);
-
-        Uri uri = getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-
-        if (uri != null) {
-            try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
-                if (outputStream != null) {
-                    String content = generateCVContent(); // Generate text content of the CV
-                    outputStream.write(content.getBytes());
-                    outputStream.flush();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-        return uri;
+    private void shareCV() {
+        String cvContent = generateCVContent();
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, cvContent);
+        startActivity(Intent.createChooser(shareIntent, "Share CV via"));
     }
 
     private String generateCVContent() {
         return "Name: " + tvName.getText().toString() + "\n" +
                 "Email: " + tvEmail.getText().toString() + "\n" +
                 "Phone: " + tvPhone.getText().toString() + "\n" +
-                "Summary: " + tvSummary.getText().toString() + "\n" +
-                "Education: " + tvHighSchool.getText().toString() + "\n" +
-                "University: " + tvUniversity.getText().toString() + "\n" +
-                "Experience: " + tvCompanies.getText().toString() + "\n" +
-                "Certifications: " + tvCertifications.getText().toString() + "\n" +
-                "References: " + tvReferences.getText().toString();
+                "Summary: " + tvSummary.getText().toString() + "\n\n" +
+                "Education:\n" + tvHighSchool.getText().toString() + "\n" +
+                tvUniversity.getText().toString() + "\n\n" +
+                "Experience:\n" + tvCompanies.getText().toString() + "\n\n" +
+                "Certifications:\n" + tvCertifications.getText().toString() + "\n\n" +
+                "References:\n" + tvReferences.getText().toString();
     }
-
-    private void shareCV(Uri fileUri) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("application/pdf");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My CV");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Here is my CV.");
-        startActivity(Intent.createChooser(shareIntent, "Share CV via"));
-    }
-
 }
