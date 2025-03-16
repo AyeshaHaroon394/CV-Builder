@@ -5,26 +5,20 @@
     android:padding="20dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preview Screen"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:gravity="center"/>
-
     <ImageView
         android:id="@+id/ivProfilePic"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/user_avatar"/>
 
-    <TextView android:id="@+id/tvName"
+    <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="Name: "/>
 
     <TextView android:id="@+id/tvEmail"
@@ -44,6 +38,20 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="Summary: "/>
+
+    <!-- High School -->
+    <TextView android:id="@+id/tvHighSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="High School: "/>
+
+    <!-- University -->
+    <TextView android:id="@+id/tvUniversity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="University: "/>
 
     <Button
         android:id="@+id/btnBack"

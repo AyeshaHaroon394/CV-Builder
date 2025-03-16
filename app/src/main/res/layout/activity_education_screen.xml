@@ -1,10 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EducationScreen">
+    android:padding="20dp"
+    android:background="#D9D9D9">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Education Details"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#424242"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- University Name -->
+    <EditText
+        android:id="@+id/etUniversity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="University Name"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="30dp"/>
+
+    <!-- Degree -->
+    <EditText
+        android:id="@+id/etDegree"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Degree"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/etUniversity"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Graduation Year -->
+    <EditText
+        android:id="@+id/etYear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Graduation Year"
+        android:inputType="number"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/etDegree"
+        android:layout_marginTop="10dp"/>
+
+    <!-- High School Name -->
+    <EditText
+        android:id="@+id/etHighSchool"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="High School Name"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/etYear"
+        android:layout_marginTop="30dp"/>
+
+    <!-- High School Degree -->
+    <EditText
+        android:id="@+id/etHighSchoolDegree"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="High School Degree (e.g., FSC, A-Level)"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/etHighSchool"
+        android:layout_marginTop="10dp"/>
+
+    <!-- High School Graduation Year -->
+    <EditText
+        android:id="@+id/etHighSchoolYear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="High School Graduation Year"
+        android:inputType="number"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_below="@id/etHighSchoolDegree"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Save Button (Near Bottom) -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Save"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/save_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"/>
+
+    <!-- Cancel Button (Above Save) -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/black"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/cancel_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btnSave"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>
