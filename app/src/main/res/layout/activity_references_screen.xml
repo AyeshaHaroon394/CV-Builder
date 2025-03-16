@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#D9D9D9">
 
     <!-- Title -->
     <TextView
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Do you have any references?"
+        android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
@@ -43,12 +45,14 @@
             android:id="@+id/rbYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
             android:text="Yes" />
 
         <RadioButton
             android:id="@+id/rbNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
             android:text="No" />
     </RadioGroup>
 
@@ -56,7 +60,7 @@
     <EditText
         android:id="@+id/etReferences"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Enter references (comma-separated)"
         android:visibility="gone"
         android:background="@drawable/rounded_edittext"
@@ -87,8 +91,9 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:padding="10dp"
-        android:background="@drawable/cancel_btn"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btnSave"
+        style="@style/CancelButtonStyle"
+        android:backgroundTint="@color/dark_grey"
         android:layout_marginBottom="20dp"/>
 </RelativeLayout>
