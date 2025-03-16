@@ -1,16 +1,21 @@
 package com.example.cv_builder;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Set;
 
 public class PreviewScreen extends AppCompatActivity {
@@ -19,7 +24,7 @@ public class PreviewScreen extends AppCompatActivity {
     private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications, tvReferences;
     private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
-    private Button btnBack;
+    private Button btnBack, btnShare;
 
     // SharedPreferences instance
     private SharedPreferences profilePrefs;
@@ -38,6 +43,14 @@ public class PreviewScreen extends AppCompatActivity {
             startActivity(backIntent);
             finish();
         });
+
+        btnShare.setOnClickListener(v ->{
+            Uri fileUri = createAndSaveCV(); // Generate and save the CV
+            if (fileUri != null) {
+                shareCV(fileUri); // Share the CV
+            }
+        });
+
     }
 
     // Initialize views and SharedPreferences
@@ -54,6 +67,7 @@ public class PreviewScreen extends AppCompatActivity {
         tvCertifications = findViewById(R.id.tvCertifications);
         tvReferences = findViewById(R.id.tvReferences);
         btnBack = findViewById(R.id.btnBack);
+        btnShare = findViewById(R.id.btnShareCV);
 
         profilePrefs = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);  // Initialize SharedPreferences
     }
@@ -161,4 +175,50 @@ public class PreviewScreen extends AppCompatActivity {
             ivProfilePic.setImageURI(imageUri);
         }
     }
+
+    private Uri createAndSaveCV() {
+        String fileName = "CV_" + System.currentTimeMillis() + ".pdf";
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS);
+
+        Uri uri = getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+
+        if (uri != null) {
+            try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
+                if (outputStream != null) {
+                    String content = generateCVContent(); // Generate text content of the CV
+                    outputStream.write(content.getBytes());
+                    outputStream.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return uri;
+    }
+
+    private String generateCVContent() {
+        return "Name: " + tvName.getText().toString() + "\n" +
+                "Email: " + tvEmail.getText().toString() + "\n" +
+                "Phone: " + tvPhone.getText().toString() + "\n" +
+                "Summary: " + tvSummary.getText().toString() + "\n" +
+                "Education: " + tvHighSchool.getText().toString() + "\n" +
+                "University: " + tvUniversity.getText().toString() + "\n" +
+                "Experience: " + tvCompanies.getText().toString() + "\n" +
+                "Certifications: " + tvCertifications.getText().toString() + "\n" +
+                "References: " + tvReferences.getText().toString();
+    }
+
+    private void shareCV(Uri fileUri) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("application/pdf");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My CV");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Here is my CV.");
+        startActivity(Intent.createChooser(shareIntent, "Share CV via"));
+    }
+
 }
