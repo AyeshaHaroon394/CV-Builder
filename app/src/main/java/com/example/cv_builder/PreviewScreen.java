@@ -50,7 +50,7 @@ public class PreviewScreen extends AppCompatActivity {
         tvHighSchool = findViewById(R.id.tvHighSchool);
         tvUniversity = findViewById(R.id.tvUniversity);
         tvCompanies = findViewById(R.id.tvCompanies);
-        tvYears = findViewById(R.id.tvyears);
+        tvYears = findViewById(R.id.tvYears);
         tvCertifications = findViewById(R.id.tvCertifications);
         tvReferences = findViewById(R.id.tvReferences);
         btnBack = findViewById(R.id.btnBack);

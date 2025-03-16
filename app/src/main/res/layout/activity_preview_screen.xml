@@ -1,86 +1,315 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/ivProfilePic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/user_avatar"/>
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Name: "/>
+        android:background="#D9D9D9">
 
-    <TextView android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Email: "/>
+        <!-- Profile Picture -->
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_avatar"/>
 
-    <TextView android:id="@+id/tvPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Phone: "/>
+        <!-- Name Section -->
+        <RelativeLayout
+            android:id="@+id/rlName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivProfilePic"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/preview_bg_cccfe2"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
 
-    <TextView android:id="@+id/tvSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Summary: "/>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-    <!-- High School -->
-    <TextView android:id="@+id/tvHighSchool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="High School: "/>
+        <!-- Email Section -->
+        <RelativeLayout
+            android:id="@+id/rlEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlName"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cfcedb"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
 
-    <!-- University -->
-    <TextView android:id="@+id/tvUniversity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="University: "/>
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-    <TextView android:id="@+id/tvCompanies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Companies: "/>
+        <!-- Phone Section -->
+        <RelativeLayout
+            android:id="@+id/rlPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlEmail"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_d3dbe7"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
 
-    <TextView android:id="@+id/tvyears"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Years: "/>
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-    <TextView android:id="@+id/tvCertifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Certifications: "/>
+        <!-- Summary Section -->
+        <RelativeLayout
+            android:id="@+id/rlSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlPhone"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cccfe2"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
 
-    <TextView android:id="@+id/tvReferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="References: "/>
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Summary: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Main"
-        android:layout_gravity="center"/>
-</LinearLayout>
+        <!-- High School Section -->
+        <RelativeLayout
+            android:id="@+id/rlHighSchool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlSummary"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cfcedb"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvHighSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High School: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- University Section -->
+        <RelativeLayout
+            android:id="@+id/rlUniversity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlHighSchool"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_d3dbe7"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvUniversity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="University: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- Companies Section -->
+        <RelativeLayout
+            android:id="@+id/rlCompanies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlUniversity"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cccfe2"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvCompanies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Companies: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- Years Section -->
+        <RelativeLayout
+            android:id="@+id/rlYears"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlCompanies"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cfcedb"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvYears"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Years: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- Certifications Section -->
+        <RelativeLayout
+            android:id="@+id/rlCertifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlYears"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_d3dbe7"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvCertifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Certifications: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- References Section -->
+        <RelativeLayout
+            android:id="@+id/rlReferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlCertifications"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/preview_bg_cccfe2"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/tvReferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="References: "
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <!-- Buttons Section -->
+        <RelativeLayout
+            android:id="@+id/rlButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlReferences"
+            android:layout_marginTop="20dp">
+
+            <!-- Back Button -->
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:text="Back"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:background="@drawable/save_btn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"/>
+
+            <!-- Share CV Button -->
+            <Button
+                android:id="@+id/btnShareCV"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:text="Share CV"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:background="@drawable/save_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</ScrollView>
