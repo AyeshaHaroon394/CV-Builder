@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Set;
+
 public class PreviewScreen extends AppCompatActivity {
     private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity;
+    private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
     private Button btnBack;
 
@@ -39,6 +42,8 @@ public class PreviewScreen extends AppCompatActivity {
         ivProfilePic = findViewById(R.id.ivProfilePic);
         tvHighSchool = findViewById(R.id.tvHighSchool);
         tvUniversity = findViewById(R.id.tvUniversity);
+        tvCompanies = findViewById(R.id.tvCompanies);
+        tvYears = findViewById(R.id.tvyears);
         btnBack = findViewById(R.id.btnBack);
     }
 
@@ -51,7 +56,7 @@ public class PreviewScreen extends AppCompatActivity {
         String phone = profilePrefs.getString("phoneNumber", "N/A");
         String summary = profilePrefs.getString("summaryText", "No summary provided");
 
-        // Fetch education details from ProfileDetails SharedPreferences
+        // Fetch education details
         String highSchool = profilePrefs.getString("high_school", "N/A");
         String highSchoolDegree = profilePrefs.getString("high_school_degree", "N/A");
         String highSchoolYear = profilePrefs.getString("high_school_year", "N/A");
@@ -64,9 +69,35 @@ public class PreviewScreen extends AppCompatActivity {
         tvEmail.setText(email);
         tvPhone.setText(phone);
         tvSummary.setText(summary);
-
         tvHighSchool.setText("High School: " + highSchool + " Degree: " + highSchoolDegree + " Year: " + highSchoolYear);
         tvUniversity.setText("University: " + university + " Degree: " + universityDegree + " Year: " + universityYear);
+
+        // Load Experience Data
+        Set<String> companySet = profilePrefs.getStringSet("companies", null);
+        Set<String> yearSet = profilePrefs.getStringSet("durations", null);
+
+        if (companySet != null && yearSet != null) {
+            StringBuilder companyText = new StringBuilder("Companies:\n");
+            StringBuilder yearText = new StringBuilder("Years:\n");
+
+            String[] companies = companySet.toArray(new String[0]);
+            String[] years = yearSet.toArray(new String[0]);
+
+            for (int i = 0; i < companies.length; i++) {
+                companyText.append(companies[i]).append("\n");
+                if (i < years.length) {
+                    yearText.append(years[i]).append("\n");
+                } else {
+                    yearText.append("N/A\n");
+                }
+            }
+
+            tvCompanies.setText(companyText.toString());
+            tvYears.setText(yearText.toString());
+        } else {
+            tvCompanies.setText("Companies: No data available");
+            tvYears.setText("Years: No data available");
+        }
 
         // Load Profile Picture
         String imageUriString = profilePrefs.getString("key_profile_image_uri", null);

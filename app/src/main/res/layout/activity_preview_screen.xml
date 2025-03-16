@@ -53,6 +53,18 @@
         android:textSize="18sp"
         android:text="University: "/>
 
+    <TextView android:id="@+id/tvCompanies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Companies: "/>
+
+    <TextView android:id="@+id/tvyears"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Years: "/>
+
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
