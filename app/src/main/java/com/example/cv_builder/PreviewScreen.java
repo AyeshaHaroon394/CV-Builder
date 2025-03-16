@@ -14,19 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Set;
 
 public class PreviewScreen extends AppCompatActivity {
+
+    // Declare views
     private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications, tvReferences;
     private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
     private Button btnBack;
+
+    // SharedPreferences instance
+    private SharedPreferences profilePrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_screen);
 
-        init();
-        loadData();
+        init();  // Initialize views and SharedPreferences
+        loadData();  // Load data into views
 
+        // Back button functionality
         btnBack.setOnClickListener(v -> {
             Intent backIntent = new Intent(PreviewScreen.this, MainActivity.class);
             startActivity(backIntent);
@@ -34,6 +40,7 @@ public class PreviewScreen extends AppCompatActivity {
         });
     }
 
+    // Initialize views and SharedPreferences
     private void init() {
         tvName = findViewById(R.id.tvName);
         tvEmail = findViewById(R.id.tvEmail);
@@ -47,18 +54,36 @@ public class PreviewScreen extends AppCompatActivity {
         tvCertifications = findViewById(R.id.tvCertifications);
         tvReferences = findViewById(R.id.tvReferences);
         btnBack = findViewById(R.id.btnBack);
+
+        profilePrefs = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);  // Initialize SharedPreferences
     }
 
+    // Load all data into the views
     private void loadData() {
-        SharedPreferences profilePrefs = getSharedPreferences("ProfileData", Context.MODE_PRIVATE);
+        loadPersonalDetails();
+        loadEducationDetails();
+        loadExperienceDetails();
+        loadCertifications();
+        loadReferences();
+        loadProfilePicture();
+    }
 
+    // Function to load personal details
+    private void loadPersonalDetails() {
         String firstName = profilePrefs.getString("firstName", "N/A");
         String lastName = profilePrefs.getString("lastName", "N/A");
         String email = profilePrefs.getString("email", "N/A");
         String phone = profilePrefs.getString("phoneNumber", "N/A");
         String summary = profilePrefs.getString("summaryText", "No summary provided");
 
-        // Fetch education details
+        tvName.setText(firstName + " " + lastName);
+        tvEmail.setText(email);
+        tvPhone.setText(phone);
+        tvSummary.setText(summary);
+    }
+
+    // Function to load education details
+    private void loadEducationDetails() {
         String highSchool = profilePrefs.getString("high_school", "N/A");
         String highSchoolDegree = profilePrefs.getString("high_school_degree", "N/A");
         String highSchoolYear = profilePrefs.getString("high_school_year", "N/A");
@@ -67,14 +92,12 @@ public class PreviewScreen extends AppCompatActivity {
         String universityDegree = profilePrefs.getString("degree", "N/A");
         String universityYear = profilePrefs.getString("year", "N/A");
 
-        tvName.setText(firstName + " " + lastName);
-        tvEmail.setText(email);
-        tvPhone.setText(phone);
-        tvSummary.setText(summary);
         tvHighSchool.setText("High School: " + highSchool + " Degree: " + highSchoolDegree + " Year: " + highSchoolYear);
         tvUniversity.setText("University: " + university + " Degree: " + universityDegree + " Year: " + universityYear);
+    }
 
-        // Load Experience Data
+    // Function to load experience details
+    private void loadExperienceDetails() {
         Set<String> companySet = profilePrefs.getStringSet("companies", null);
         Set<String> yearSet = profilePrefs.getStringSet("durations", null);
 
@@ -100,8 +123,10 @@ public class PreviewScreen extends AppCompatActivity {
             tvCompanies.setText("Companies: No data available");
             tvYears.setText("Years: No data available");
         }
+    }
 
-        // Load Certifications
+    // Function to load certifications
+    private void loadCertifications() {
         Set<String> certSet = profilePrefs.getStringSet("certifications", null);
         if (certSet != null && !certSet.isEmpty()) {
             StringBuilder certText = new StringBuilder("Certifications:\n");
@@ -112,8 +137,10 @@ public class PreviewScreen extends AppCompatActivity {
         } else {
             tvCertifications.setText("Certifications: No certifications added");
         }
+    }
 
-        // Load References
+    // Function to load references
+    private void loadReferences() {
         Set<String> refSet = profilePrefs.getStringSet("references", null);
         if (refSet != null && !refSet.isEmpty()) {
             StringBuilder refText = new StringBuilder("References:\n");
@@ -124,9 +151,11 @@ public class PreviewScreen extends AppCompatActivity {
         } else {
             tvReferences.setText("References: No references added");
         }
+    }
 
-        // Load Profile Picture
-        String imageUriString = profilePrefs.getString("key_profile_image_uri", null);
+    // Function to load profile picture
+    private void loadProfilePicture() {
+        String imageUriString = profilePrefs.getString("profileImageUri", null);
         if (imageUriString != null) {
             Uri imageUri = Uri.parse(imageUriString);
             ivProfilePic.setImageURI(imageUri);
