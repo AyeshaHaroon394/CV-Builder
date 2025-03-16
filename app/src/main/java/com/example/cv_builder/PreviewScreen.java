@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Set;
 
 public class PreviewScreen extends AppCompatActivity {
-    private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity;
+    private TextView tvName, tvEmail, tvPhone, tvSummary, tvHighSchool, tvUniversity, tvCertifications;
     private TextView tvCompanies, tvYears;
     private ImageView ivProfilePic;
     private Button btnBack;
@@ -97,6 +97,18 @@ public class PreviewScreen extends AppCompatActivity {
         } else {
             tvCompanies.setText("Companies: No data available");
             tvYears.setText("Years: No data available");
+        }
+
+        // Load Certifications
+        Set<String> certSet = profilePrefs.getStringSet("certifications", null);
+        if (certSet != null && !certSet.isEmpty()) {
+            StringBuilder certText = new StringBuilder("Certifications:\n");
+            for (String cert : certSet) {
+                certText.append(cert.trim()).append("\n");
+            }
+            tvCertifications.setText(certText.toString());
+        } else {
+            tvCertifications.setText("Certifications: No certifications added");
         }
 
         // Load Profile Picture

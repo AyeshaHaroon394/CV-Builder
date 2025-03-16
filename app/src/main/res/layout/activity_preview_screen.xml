@@ -65,6 +65,12 @@
         android:textSize="18sp"
         android:text="Years: "/>
 
+    <TextView android:id="@+id/tvCertifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Certifications: "/>
+
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
